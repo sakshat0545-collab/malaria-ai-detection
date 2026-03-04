@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Malaria AI Diagnostic System</title>
+
+<style>
+
+body{
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#041425,#0c2e4f);
+color:white;
+margin:0;
+}
+
+.header{
+text-align:center;
+font-size:34px;
+font-weight:600;
+padding:30px;
+letter-spacing:1px;
+}
+
+.container{
+width:1200px;
+margin:auto;
+display:flex;
+gap:40px;
+justify-content:center;
+}
+
+.panel{
+background:rgba(19,47,76,0.85);
+padding:30px;
+border-radius:14px;
+box-shadow:0 15px 35px rgba(0,0,0,0.45);
+backdrop-filter:blur(8px);
+}
+
+.upload-panel{
+width:450px;
+text-align:center;
+}
+
+.result-panel{
+width:450px;
+}
+
+button{
+padding:12px 22px;
+border:none;
+background:#2fa4ff;
+color:white;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1c8de0;
+}
+
+.preview img{
+width:260px;
+border-radius:12px;
+margin-top:15px;
+}
+
+.status{
+font-size:22px;
+font-weight:600;
+margin-bottom:15px;
+}
+
+.metric{
+margin-top:10px;
+font-size:18px;
+}
+
+.progress{
+background:#1e3c5a;
+border-radius:10px;
+height:14px;
+margin-top:8px;
+}
+
+.progress-bar{
+height:14px;
+background:#2fa4ff;
+border-radius:10px;
+}
+
+.heatmap-section{
+margin-top:40px;
+text-align:center;
+}
+
+.heatmap img{
+width:320px;
+border-radius:12px;
+margin-top:10px;
+}
+
+.footer{
+text-align:center;
+margin-top:50px;
+opacity:0.7;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+🧬 Malaria AI Diagnostic System
+</div>
+
+<div class="container">
+
+<div class="panel upload-panel">
+
+<h2>Upload Blood Smear Image</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+<input type="file" name="file" required>
+<br><br>
+
+<button type="submit">Analyze Image</button>
+
+</form>
+
+{% if filename %}
+
+<div class="preview">
+
+<h3>Image Preview</h3>
+
+<img src="{{ url_for('static', filename=filename) }}">
+
+</div>
+
+{% endif %}
+
+</div>
+
+
+<div class="panel result-panel">
+
+<h2>AI Diagnostic Report</h2>
+
+{% if result %}
+
+<div class="status">
+Diagnosis: {{ result }}
+</div>
+
+<div class="metric">
+Confidence: {{ confidence }} %
+</div>
+
+<div class="progress">
+<div class="progress-bar" style="width: {{ confidence }}%"></div>
+</div>
+
+<div class="metric">
+Processing Time: {{ processing_time }} sec
+</div>
+
+{% else %}
+
+<p>Upload a microscopy image to begin AI analysis.</p>
+
+{% endif %}
+
+</div>
+
+</div>
+
+
+<div class="heatmap-section">
+
+<h2>AI Heatmap</h2>
+
+<p>Highlighting infected region in the cell</p>
+
+{% if heatmap %}
+
+<div class="heatmap">
+
+<img src="{{ url_for('static', filename=heatmap) }}">
+
+</div>
+
+{% endif %}
+
+</div>
+
+
+<div class="footer">
+
+AI Assisted Malaria Detection • Biomedical Research Prototype
+
+</div>
+
+</body>
+
+</html>
