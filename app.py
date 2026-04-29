@@ -54,10 +54,10 @@ def predict(image):
     processing_time = round(end - start, 3)
 
     if prediction > 0.5:
-        label = "Parasitized"
+        label = "paracitized"
         confidence = prediction
     else:
-        label = "Uninfected"
+        label = "uninfected"
         confidence = 1 - prediction
 
     confidence = round(float(confidence) * 100, 2)
